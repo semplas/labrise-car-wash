@@ -140,7 +140,7 @@ const StaffManagement: React.FC = () => {
               </div>
             </div>
           </div>
-        ))
+        ))}
       </div>
 
       {showAddForm && (

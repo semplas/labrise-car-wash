@@ -257,7 +257,7 @@ const BusinessDashboard: React.FC = () => {
                     <button onClick={() => handleDeleteService(service.id)} className="delete-btn">Delete</button>
                   </div>
                 </div>
-              ))
+              ))}
             </div>
           )}
         </div>

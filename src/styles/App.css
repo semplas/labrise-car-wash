@@ -1007,6 +1007,7 @@ button:disabled {
     gap: 1rem;
     width: 100%;
   }
+}
 
 .staff-card.inactive {
   opacity: 0.6;
