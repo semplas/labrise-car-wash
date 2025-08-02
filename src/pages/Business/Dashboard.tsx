@@ -194,7 +194,7 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div className="cars-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px', gridTemplateColumns: 'none', grid: 'none'}}>
+            <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px'}}>
               {filteredCars.map(car => (
                 <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%', padding: '0', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', overflow: 'hidden', background: 'white'}}>
                   <div className="car-images" style={{width: '140px', height: '110px', overflow: 'hidden', flexShrink: 0, background: '#f8f9fa'}}>
@@ -245,7 +245,7 @@ const BusinessDashboard: React.FC = () => {
               <p>No services added yet</p>
             </div>
           ) : (
-            <div className="services-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '900px', gridTemplateColumns: 'none', grid: 'none'}}>
+            <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '900px'}}>
               {services.map(service => (
                 <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', background: 'white', minHeight: '80px'}}>
                   <div className="service-info" style={{flex: 1, marginRight: '1.5rem'}}>
