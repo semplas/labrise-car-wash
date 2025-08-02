@@ -46,6 +46,16 @@ const BusinessDashboard: React.FC = () => {
     setShowServiceForm(false);
   };
 
+  const handleShowCarForm = () => {
+    console.log('Add Car button clicked');
+    setShowCarForm(true);
+  };
+
+  const handleShowServiceForm = () => {
+    console.log('Add Service button clicked');
+    setShowServiceForm(true);
+  };
+
   const filteredCars = searchQuery
     ? carService.searchCars(user?.businessId || '', searchQuery)
     : cars;
@@ -88,7 +98,7 @@ const BusinessDashboard: React.FC = () => {
         <div className="section">
           <div className="section-header">
             <h2>Cars ({filteredCars.length})</h2>
-            <button onClick={() => setShowCarForm(true)} className="create-btn">
+            <button onClick={handleShowCarForm} className="create-btn">
               Add Car
             </button>
           </div>
@@ -123,7 +133,7 @@ const BusinessDashboard: React.FC = () => {
         <div className="section">
           <div className="section-header">
             <h2>Services ({services.length})</h2>
-            <button onClick={() => setShowServiceForm(true)} className="create-btn">
+            <button onClick={handleShowServiceForm} className="create-btn">
               Add Service
             </button>
           </div>
@@ -154,15 +164,30 @@ const BusinessDashboard: React.FC = () => {
         {showCarForm && (
           <CarForm
             onSubmit={handleAddCar}
-            onClose={() => setShowCarForm(false)}
+            onClose={() => {
+              console.log('Closing car form');
+              setShowCarForm(false);
+            }}
           />
         )}
 
         {showServiceForm && (
           <ServiceForm
             onSubmit={handleAddService}
-            onClose={() => setShowServiceForm(false)}
+            onClose={() => {
+              console.log('Closing service form');
+              setShowServiceForm(false);
+            }}
           />
+        )}
+
+        {/* Debug info */}
+        {process.env.NODE_ENV === 'development' && (
+          <div style={{position: 'fixed', top: 10, right: 10, background: 'white', padding: '10px', zIndex: 10000}}>
+            <p>Car Form: {showCarForm ? 'OPEN' : 'CLOSED'}</p>
+            <p>Service Form: {showServiceForm ? 'OPEN' : 'CLOSED'}</p>
+            <p>User ID: {user?.businessId}</p>
+          </div>
         )}
       </div>
     </div>
