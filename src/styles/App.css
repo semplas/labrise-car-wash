@@ -370,7 +370,7 @@ button:disabled {
   100% { transform: rotate(360deg); }
 }
 
-/* Cache Buster - Updated: 2024-12-19 */
+/* FORCE REFRESH - Updated: 2024-12-19-16:30 - LIST LAYOUTS ACTIVE */
 /* Enhanced Section Headers */
 .section-header {
   display: flex;

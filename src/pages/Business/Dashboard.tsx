@@ -194,9 +194,9 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div className="cars-list">
+            <div className="cars-list" style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
               {filteredCars.map(car => (
-                <div key={car.id} className="car-card">
+                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
                   <div className="car-images">
                     {car.images.length > 0 ? (
                       <img src={car.images[0]} alt={car.licensePlate} />
@@ -236,15 +236,15 @@ const BusinessDashboard: React.FC = () => {
               <p>No services added yet</p>
             </div>
           ) : (
-            <div className="services-list">
+            <div className="services-list" style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
               {services.map(service => (
-                <div key={service.id} className="service-card">
+                <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
                   <div className="service-info">
                     <h3>{service.name}</h3>
                     <p className="service-category">{service.category}</p>
                   </div>
                   <div className="service-details">
-                    <p className="service-price">UGX {service.amount.toLocaleString()}</p>
+                    <p className="service-price" style={{color: 'green', fontWeight: 'bold'}}>UGX {service.amount.toLocaleString()}</p>
                     <p>{service.duration} minutes</p>
                     <div className="car-sizes">
                       {service.carSizes.map(size => (
