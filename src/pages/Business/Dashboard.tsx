@@ -8,6 +8,7 @@ import CarForm from '../../components/CarForm';
 import ServiceForm from '../../components/ServiceForm';
 import QueueManagement from '../../components/QueueManagement';
 import StaffManagement from '../../components/StaffManagement';
+import Analytics from '../../components/Analytics';
 
 const BusinessDashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -21,7 +22,7 @@ const BusinessDashboard: React.FC = () => {
   const [editingCar, setEditingCar] = useState<Car | null>(null);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'queue' | 'staff'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'queue' | 'staff' | 'analytics'>('overview');
 
   const loadData = () => {
     if (!user?.businessId) return;
@@ -142,6 +143,12 @@ const BusinessDashboard: React.FC = () => {
             onClick={() => setActiveTab('staff')}
           >
             Staff
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
+            onClick={() => setActiveTab('analytics')}
+          >
+            Analytics
           </button>
         </div>
         {activeTab === 'overview' && (
@@ -271,6 +278,7 @@ const BusinessDashboard: React.FC = () => {
 
         {activeTab === 'queue' && <QueueManagement />}
         {activeTab === 'staff' && <StaffManagement />}
+        {activeTab === 'analytics' && <Analytics />}
 
 
       </div>
