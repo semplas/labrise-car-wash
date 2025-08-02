@@ -162,6 +162,9 @@ button:disabled {
   padding: 0.5rem 1rem;
   background: #27ae60;
   margin: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 1;
 }
 
 .create-btn:hover {
