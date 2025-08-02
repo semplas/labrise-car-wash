@@ -85,59 +85,62 @@ const StaffManagement: React.FC = () => {
         </div>
       </div>
 
-      <div className="staff-grid">
+      <div className="staff-list">
         {staff.map(staffMember => (
           <div key={staffMember.id} className={`staff-card ${!staffMember.isActive ? 'inactive' : ''}`}>
-            <div className="staff-header-info">
-              <h3>{staffMember.name}</h3>
-              <span 
-                className="role-badge" 
-                style={{ backgroundColor: getRoleColor(staffMember.role) }}
-              >
-                {staffMember.role}
-              </span>
-            </div>
-            
-            <div className="staff-contact">
-              <p><strong>Email:</strong> {staffMember.email}</p>
-              <p><strong>Phone:</strong> {staffMember.phone}</p>
-              <p><strong>Hire Date:</strong> {new Date(staffMember.hireDate).toLocaleDateString()}</p>
-            </div>
-
-            <div className="staff-performance">
-              <h4>Performance</h4>
-              <div className="performance-stats">
-                <div className="perf-stat">
-                  <span>Services</span>
-                  <strong>{staffMember.performance.servicesCompleted}</strong>
-                </div>
-                <div className="perf-stat">
-                  <span>Rating</span>
-                  <strong>{staffMember.performance.averageRating.toFixed(1)}★</strong>
-                </div>
-                <div className="perf-stat">
-                  <span>Revenue</span>
-                  <strong>${staffMember.performance.totalRevenue}</strong>
-                </div>
+            <div className="staff-main-info">
+              <div className="staff-header-info">
+                <h3>{staffMember.name}</h3>
+                <span 
+                  className="role-badge" 
+                  style={{ backgroundColor: getRoleColor(staffMember.role) }}
+                >
+                  {staffMember.role}
+                </span>
+              </div>
+              <div className="staff-contact">
+                <p><strong>Email:</strong> {staffMember.email}</p>
+                <p><strong>Phone:</strong> {staffMember.phone}</p>
+                <p><strong>Hire Date:</strong> {new Date(staffMember.hireDate).toLocaleDateString()}</p>
               </div>
             </div>
 
-            <div className="staff-actions">
-              <button onClick={() => handleEditStaff(staffMember)} className="edit-btn">
-                Edit
-              </button>
-              <button 
-                onClick={() => handleToggleActive(staffMember.id, staffMember.isActive)}
-                className={staffMember.isActive ? 'deactivate-btn' : 'activate-btn'}
-              >
-                {staffMember.isActive ? 'Deactivate' : 'Activate'}
-              </button>
-              <button onClick={() => handleDeleteStaff(staffMember.id)} className="delete-btn">
-                Delete
-              </button>
+            <div className="staff-secondary-info">
+              <div className="staff-performance">
+                <h4>Performance</h4>
+                <div className="performance-stats">
+                  <div className="perf-stat">
+                    <span>Services</span>
+                    <strong>{staffMember.performance.servicesCompleted}</strong>
+                  </div>
+                  <div className="perf-stat">
+                    <span>Rating</span>
+                    <strong>{staffMember.performance.averageRating.toFixed(1)}★</strong>
+                  </div>
+                  <div className="perf-stat">
+                    <span>Revenue</span>
+                    <strong>UGX {staffMember.performance.totalRevenue.toLocaleString()}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="staff-actions">
+                <button onClick={() => handleEditStaff(staffMember)} className="edit-btn">
+                  Edit
+                </button>
+                <button 
+                  onClick={() => handleToggleActive(staffMember.id, staffMember.isActive)}
+                  className={staffMember.isActive ? 'deactivate-btn' : 'activate-btn'}
+                >
+                  {staffMember.isActive ? 'Deactivate' : 'Activate'}
+                </button>
+                <button onClick={() => handleDeleteStaff(staffMember.id)} className="delete-btn">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        ))}
+        ))
       </div>
 
       {showAddForm && (

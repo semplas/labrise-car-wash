@@ -221,7 +221,7 @@ const AddToQueueModal: React.FC<{
                     checked={selectedServices.includes(service.id)}
                     onChange={() => handleServiceToggle(service.id)}
                   />
-                  {service.name} - ${service.amount} ({service.duration}min)
+                  {service.name} - UGX {service.amount.toLocaleString()} ({service.duration}min)
                 </label>
               ))}
             </div>

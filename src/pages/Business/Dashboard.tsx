@@ -194,7 +194,7 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div className="cars-grid">
+            <div className="cars-list">
               {filteredCars.map(car => (
                 <div key={car.id} className="car-card">
                   <div className="car-images">
@@ -236,24 +236,28 @@ const BusinessDashboard: React.FC = () => {
               <p>No services added yet</p>
             </div>
           ) : (
-            <div className="services-grid">
+            <div className="services-list">
               {services.map(service => (
                 <div key={service.id} className="service-card">
-                  <h3>{service.name}</h3>
-                  <p className="service-price">${service.amount}</p>
-                  <p>{service.duration} minutes</p>
-                  <p className="service-category">{service.category}</p>
-                  <div className="car-sizes">
-                    {service.carSizes.map(size => (
-                      <span key={size} className="size-tag">{size}</span>
-                    ))}
+                  <div className="service-info">
+                    <h3>{service.name}</h3>
+                    <p className="service-category">{service.category}</p>
+                  </div>
+                  <div className="service-details">
+                    <p className="service-price">UGX {service.amount.toLocaleString()}</p>
+                    <p>{service.duration} minutes</p>
+                    <div className="car-sizes">
+                      {service.carSizes.map(size => (
+                        <span key={size} className="size-tag">{size}</span>
+                      ))}
+                    </div>
                   </div>
                   <div className="card-actions">
                     <button onClick={() => handleEditService(service)} className="edit-btn">Edit</button>
                     <button onClick={() => handleDeleteService(service.id)} className="delete-btn">Delete</button>
                   </div>
                 </div>
-              ))}
+              ))
             </div>
           )}
         </div>

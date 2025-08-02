@@ -51,7 +51,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit, onClose, initialDat
 
           <div className="form-row">
             <div className="form-group">
-              <label>Amount ($)</label>
+              <label>Amount (UGX)</label>
               <input
                 type="number"
                 min="0"

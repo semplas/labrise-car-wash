@@ -85,15 +85,15 @@ const Analytics: React.FC = () => {
       <div className="revenue-cards">
         <div className="revenue-card">
           <h3>Today</h3>
-          <p className="revenue-amount">${analytics.todayRevenue.toFixed(2)}</p>
+          <p className="revenue-amount">UGX {analytics.todayRevenue.toLocaleString()}</p>
         </div>
         <div className="revenue-card">
           <h3>This Week</h3>
-          <p className="revenue-amount">${analytics.weekRevenue.toFixed(2)}</p>
+          <p className="revenue-amount">UGX {analytics.weekRevenue.toLocaleString()}</p>
         </div>
         <div className="revenue-card">
           <h3>This Month</h3>
-          <p className="revenue-amount">${analytics.monthRevenue.toFixed(2)}</p>
+          <p className="revenue-amount">UGX {analytics.monthRevenue.toLocaleString()}</p>
         </div>
         <div className="revenue-card">
           <h3>Total Services</h3>
@@ -135,7 +135,7 @@ const Analytics: React.FC = () => {
               analytics.recentActivity.map((activity, index) => (
                 <div key={index} className="activity-item">
                   <div className="activity-info">
-                    <span className="activity-amount">${activity.totalAmount}</span>
+                    <span className="activity-amount">UGX {activity.totalAmount.toLocaleString()}</span>
                     <span className="activity-date">
                       {new Date(activity.completedAt).toLocaleDateString()}
                     </span>
