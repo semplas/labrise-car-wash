@@ -16,6 +16,8 @@ const BusinessDashboard: React.FC = () => {
   const [showCarForm, setShowCarForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editingCar, setEditingCar] = useState<Car | null>(null);
+  const [editingService, setEditingService] = useState<Service | null>(null);
 
   const loadData = () => {
     if (!user?.businessId) return;
@@ -34,16 +36,62 @@ const BusinessDashboard: React.FC = () => {
 
   const handleAddCar = (carData: Omit<Car, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (!user?.businessId) return;
-    carService.addCar(user.businessId, carData);
+    if (editingCar) {
+      carService.updateCar(user.businessId, editingCar.id, carData);
+      setEditingCar(null);
+    } else {
+      carService.addCar(user.businessId, carData);
+    }
     loadData();
     setShowCarForm(false);
   };
 
   const handleAddService = (serviceData: Omit<Service, 'id' | 'createdAt'>) => {
     if (!user?.businessId) return;
-    serviceService.addService(user.businessId, serviceData);
+    if (editingService) {
+      serviceService.updateService(user.businessId, editingService.id, serviceData);
+      setEditingService(null);
+    } else {
+      serviceService.addService(user.businessId, serviceData);
+    }
     loadData();
     setShowServiceForm(false);
+  };
+
+  const handleEditCar = (car: Car) => {
+    setEditingCar(car);
+    setShowCarForm(true);
+  };
+
+  const handleEditService = (service: Service) => {
+    setEditingService(service);
+    setShowServiceForm(true);
+  };
+
+  const handleDeleteCar = (carId: string) => {
+    if (!user?.businessId) return;
+    if (window.confirm('Are you sure you want to delete this car?')) {
+      carService.deleteCar(user.businessId, carId);
+      loadData();
+    }
+  };
+
+  const handleDeleteService = (serviceId: string) => {
+    if (!user?.businessId) return;
+    if (window.confirm('Are you sure you want to delete this service?')) {
+      serviceService.deleteService(user.businessId, serviceId);
+      loadData();
+    }
+  };
+
+  const handleCloseCarForm = () => {
+    setShowCarForm(false);
+    setEditingCar(null);
+  };
+
+  const handleCloseServiceForm = () => {
+    setShowServiceForm(false);
+    setEditingService(null);
   };
 
   const filteredCars = searchQuery
@@ -116,6 +164,10 @@ const BusinessDashboard: React.FC = () => {
                     <p>{car.make} - {car.color}</p>
                     <p><strong>Owner:</strong> {car.owner.name}</p>
                     <p><strong>Phone:</strong> {car.owner.phone}</p>
+                    <div className="card-actions">
+                      <button onClick={() => handleEditCar(car)} className="edit-btn">Edit</button>
+                      <button onClick={() => handleDeleteCar(car.id)} className="delete-btn">Delete</button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -151,6 +203,10 @@ const BusinessDashboard: React.FC = () => {
                       <span key={size} className="size-tag">{size}</span>
                     ))}
                   </div>
+                  <div className="card-actions">
+                    <button onClick={() => handleEditService(service)} className="edit-btn">Edit</button>
+                    <button onClick={() => handleDeleteService(service.id)} className="delete-btn">Delete</button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -160,14 +216,16 @@ const BusinessDashboard: React.FC = () => {
         {showCarForm && (
           <CarForm
             onSubmit={handleAddCar}
-            onClose={() => setShowCarForm(false)}
+            onClose={handleCloseCarForm}
+            initialData={editingCar || undefined}
           />
         )}
 
         {showServiceForm && (
           <ServiceForm
             onSubmit={handleAddService}
-            onClose={() => setShowServiceForm(false)}
+            onClose={handleCloseServiceForm}
+            initialData={editingService || undefined}
           />
         )}
 
