@@ -194,26 +194,33 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div className="cars-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px'}}>
+            <div className="cars-list" style={{display: 'flex !important', flexDirection: 'column !important', gap: '1.5rem', maxWidth: '800px', gridTemplateColumns: 'none', grid: 'none'}}>
               {filteredCars.map(car => (
-                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #f0f0f0'}}>
-                  <div className="car-images" style={{width: '120px', height: '90px', borderRadius: '8px', overflow: 'hidden', flexShrink: 0, marginRight: '1.5rem'}}>
+                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%', padding: '0', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', overflow: 'hidden', background: 'white'}}>
+                  <div className="car-images" style={{width: '140px', height: '110px', overflow: 'hidden', flexShrink: 0, background: '#f8f9fa'}}>
                     {car.images.length > 0 ? (
                       <img src={car.images[0]} alt={car.licensePlate} />
                     ) : (
                       <div className="no-image">No Image</div>
                     )}
                   </div>
-                  <div className="car-info" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-                    <div style={{marginBottom: '1rem'}}>
-                      <h3 style={{margin: '0 0 0.5rem 0', fontSize: '1.2rem', fontWeight: '600', color: '#2c3e50'}}>{car.licensePlate}</h3>
-                      <p style={{margin: '0 0 0.25rem 0', color: '#7f8c8d', fontSize: '0.95rem'}}>{car.make} - {car.color}</p>
-                      <p style={{margin: '0 0 0.25rem 0', color: '#34495e', fontSize: '0.9rem'}}><strong>Owner:</strong> {car.owner.name}</p>
-                      <p style={{margin: '0', color: '#34495e', fontSize: '0.9rem'}}><strong>Phone:</strong> {car.owner.phone}</p>
+                  <div className="car-info" style={{flex: 1, padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '110px'}}>
+                    <div style={{flex: 1}}>
+                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem'}}>
+                        <div>
+                          <h3 style={{margin: '0 0 0.25rem 0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{car.licensePlate}</h3>
+                          <p style={{margin: '0', color: '#7f8c8d', fontSize: '0.9rem'}}>{car.make} • {car.color}</p>
+                        </div>
+                        <div style={{background: '#ecf0f1', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.75rem', color: '#2c3e50', fontWeight: '500'}}>Car</div>
+                      </div>
+                      <div style={{display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: '#34495e'}}>
+                        <div><span style={{color: '#7f8c8d'}}>Owner:</span> {car.owner.name}</div>
+                        <div><span style={{color: '#7f8c8d'}}>Phone:</span> {car.owner.phone}</div>
+                      </div>
                     </div>
-                    <div className="card-actions" style={{display: 'flex', gap: '0.75rem', marginTop: '0', paddingTop: '0', border: 'none'}}>
-                      <button onClick={() => handleEditCar(car)} style={{padding: '0.5rem 1rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500'}}>Edit</button>
-                      <button onClick={() => handleDeleteCar(car.id)} style={{padding: '0.5rem 1rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500'}}>Delete</button>
+                    <div className="card-actions" style={{display: 'flex', gap: '0.5rem', marginTop: '0.75rem'}}>
+                      <button onClick={() => handleEditCar(car)} style={{padding: '0.4rem 0.8rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s'}}>Edit</button>
+                      <button onClick={() => handleDeleteCar(car.id)} style={{padding: '0.4rem 0.8rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s'}}>Delete</button>
                     </div>
                   </div>
                 </div>
@@ -238,27 +245,29 @@ const BusinessDashboard: React.FC = () => {
               <p>No services added yet</p>
             </div>
           ) : (
-            <div className="services-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '900px'}}>
+            <div className="services-list" style={{display: 'flex !important', flexDirection: 'column !important', gap: '1.5rem', maxWidth: '900px', gridTemplateColumns: 'none', grid: 'none'}}>
               {services.map(service => (
-                <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #f0f0f0'}}>
-                  <div className="service-info" style={{flex: 1, marginRight: '2rem'}}>
-                    <h3 style={{margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{service.name}</h3>
-                    <p className="service-category" style={{margin: '0', color: '#7f8c8d', fontSize: '0.9rem', textTransform: 'capitalize'}}>{service.category}</p>
-                  </div>
-                  <div className="service-details" style={{display: 'flex', alignItems: 'center', gap: '2rem', marginRight: '2rem'}}>
-                    <div style={{textAlign: 'center'}}>
-                      <p className="service-price" style={{margin: '0 0 0.25rem 0', fontSize: '1.2rem', fontWeight: '700', color: '#27ae60'}}>UGX {service.amount.toLocaleString()}</p>
-                      <p style={{margin: '0', color: '#7f8c8d', fontSize: '0.85rem'}}>{service.duration} min</p>
+                <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', background: 'white', minHeight: '80px'}}>
+                  <div className="service-info" style={{flex: 1, marginRight: '1.5rem'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem'}}>
+                      <h3 style={{margin: '0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{service.name}</h3>
+                      <div style={{background: '#3498db', color: 'white', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.7rem', fontWeight: '500', textTransform: 'uppercase'}}>{service.category}</div>
                     </div>
-                    <div className="car-sizes" style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
-                      {service.carSizes.map(size => (
-                        <span key={size} className="size-tag" style={{background: '#ecf0f1', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.8rem', color: '#2c3e50', textTransform: 'capitalize'}}>{size}</span>
-                      ))}
+                    <div style={{fontSize: '0.85rem', color: '#7f8c8d'}}>{service.duration} minutes duration</div>
+                  </div>
+                  <div className="service-details" style={{display: 'flex', alignItems: 'center', gap: '1.5rem', marginRight: '1.5rem'}}>
+                    <div style={{textAlign: 'right'}}>
+                      <p className="service-price" style={{margin: '0 0 0.25rem 0', fontSize: '1.3rem', fontWeight: '700', color: '#27ae60'}}>UGX {service.amount.toLocaleString()}</p>
+                      <div className="car-sizes" style={{display: 'flex', gap: '0.25rem', justifyContent: 'flex-end'}}>
+                        {service.carSizes.map(size => (
+                          <span key={size} className="size-tag" style={{background: '#f8f9fa', padding: '0.2rem 0.5rem', borderRadius: '12px', fontSize: '0.7rem', color: '#6c757d', textTransform: 'capitalize', border: '1px solid #e9ecef'}}>{size}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div className="card-actions" style={{display: 'flex', gap: '0.75rem', flexDirection: 'column'}}>
-                    <button onClick={() => handleEditService(service)} style={{padding: '0.5rem 1rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px'}}>Edit</button>
-                    <button onClick={() => handleDeleteService(service.id)} style={{padding: '0.5rem 1rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px'}}>Delete</button>
+                  <div className="card-actions" style={{display: 'flex', gap: '0.5rem', flexDirection: 'column'}}>
+                    <button onClick={() => handleEditService(service)} style={{padding: '0.4rem 0.8rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', minWidth: '70px', transition: 'all 0.2s'}}>Edit</button>
+                    <button onClick={() => handleDeleteService(service.id)} style={{padding: '0.4rem 0.8rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', minWidth: '70px', transition: 'all 0.2s'}}>Delete</button>
                   </div>
                 </div>
               ))}
