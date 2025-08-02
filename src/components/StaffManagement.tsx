@@ -85,9 +85,9 @@ const StaffManagement: React.FC = () => {
         </div>
       </div>
 
-      <div className="staff-list" style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+      <div className="staff-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '1000px'}}>
         {staff.map(staffMember => (
-          <div key={staffMember.id} className={`staff-card ${!staffMember.isActive ? 'inactive' : ''}`} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+          <div key={staffMember.id} className={`staff-card ${!staffMember.isActive ? 'inactive' : ''}`} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #f0f0f0'}}>
             <div className="staff-main-info">
               <div className="staff-header-info">
                 <h3>{staffMember.name}</h3>

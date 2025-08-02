@@ -194,24 +194,26 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div className="cars-list" style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+            <div className="cars-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px'}}>
               {filteredCars.map(car => (
-                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-                  <div className="car-images">
+                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #f0f0f0'}}>
+                  <div className="car-images" style={{width: '120px', height: '90px', borderRadius: '8px', overflow: 'hidden', flexShrink: 0, marginRight: '1.5rem'}}>
                     {car.images.length > 0 ? (
                       <img src={car.images[0]} alt={car.licensePlate} />
                     ) : (
                       <div className="no-image">No Image</div>
                     )}
                   </div>
-                  <div className="car-info">
-                    <h3>{car.licensePlate}</h3>
-                    <p>{car.make} - {car.color}</p>
-                    <p><strong>Owner:</strong> {car.owner.name}</p>
-                    <p><strong>Phone:</strong> {car.owner.phone}</p>
-                    <div className="card-actions">
-                      <button onClick={() => handleEditCar(car)} className="edit-btn">Edit</button>
-                      <button onClick={() => handleDeleteCar(car.id)} className="delete-btn">Delete</button>
+                  <div className="car-info" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                    <div style={{marginBottom: '1rem'}}>
+                      <h3 style={{margin: '0 0 0.5rem 0', fontSize: '1.2rem', fontWeight: '600', color: '#2c3e50'}}>{car.licensePlate}</h3>
+                      <p style={{margin: '0 0 0.25rem 0', color: '#7f8c8d', fontSize: '0.95rem'}}>{car.make} - {car.color}</p>
+                      <p style={{margin: '0 0 0.25rem 0', color: '#34495e', fontSize: '0.9rem'}}><strong>Owner:</strong> {car.owner.name}</p>
+                      <p style={{margin: '0', color: '#34495e', fontSize: '0.9rem'}}><strong>Phone:</strong> {car.owner.phone}</p>
+                    </div>
+                    <div className="card-actions" style={{display: 'flex', gap: '0.75rem', marginTop: '0', paddingTop: '0', border: 'none'}}>
+                      <button onClick={() => handleEditCar(car)} style={{padding: '0.5rem 1rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500'}}>Edit</button>
+                      <button onClick={() => handleDeleteCar(car.id)} style={{padding: '0.5rem 1rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500'}}>Delete</button>
                     </div>
                   </div>
                 </div>
@@ -236,25 +238,27 @@ const BusinessDashboard: React.FC = () => {
               <p>No services added yet</p>
             </div>
           ) : (
-            <div className="services-list" style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+            <div className="services-list" style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '900px'}}>
               {services.map(service => (
-                <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                  <div className="service-info">
-                    <h3>{service.name}</h3>
-                    <p className="service-category">{service.category}</p>
+                <div key={service.id} className="service-card" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #f0f0f0'}}>
+                  <div className="service-info" style={{flex: 1, marginRight: '2rem'}}>
+                    <h3 style={{margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{service.name}</h3>
+                    <p className="service-category" style={{margin: '0', color: '#7f8c8d', fontSize: '0.9rem', textTransform: 'capitalize'}}>{service.category}</p>
                   </div>
-                  <div className="service-details">
-                    <p className="service-price" style={{color: 'green', fontWeight: 'bold'}}>UGX {service.amount.toLocaleString()}</p>
-                    <p>{service.duration} minutes</p>
-                    <div className="car-sizes">
+                  <div className="service-details" style={{display: 'flex', alignItems: 'center', gap: '2rem', marginRight: '2rem'}}>
+                    <div style={{textAlign: 'center'}}>
+                      <p className="service-price" style={{margin: '0 0 0.25rem 0', fontSize: '1.2rem', fontWeight: '700', color: '#27ae60'}}>UGX {service.amount.toLocaleString()}</p>
+                      <p style={{margin: '0', color: '#7f8c8d', fontSize: '0.85rem'}}>{service.duration} min</p>
+                    </div>
+                    <div className="car-sizes" style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
                       {service.carSizes.map(size => (
-                        <span key={size} className="size-tag">{size}</span>
+                        <span key={size} className="size-tag" style={{background: '#ecf0f1', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.8rem', color: '#2c3e50', textTransform: 'capitalize'}}>{size}</span>
                       ))}
                     </div>
                   </div>
-                  <div className="card-actions">
-                    <button onClick={() => handleEditService(service)} className="edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteService(service.id)} className="delete-btn">Delete</button>
+                  <div className="card-actions" style={{display: 'flex', gap: '0.75rem', flexDirection: 'column'}}>
+                    <button onClick={() => handleEditService(service)} style={{padding: '0.5rem 1rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px'}}>Edit</button>
+                    <button onClick={() => handleDeleteService(service.id)} style={{padding: '0.5rem 1rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px'}}>Delete</button>
                   </div>
                 </div>
               ))}
