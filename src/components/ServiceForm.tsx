@@ -13,7 +13,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit, onClose, initialDat
     amount: initialData?.amount || 0,
     duration: initialData?.duration || 30,
     category: initialData?.category || 'basic' as const,
-    carSizes: initialData?.carSizes || ['compact', 'suv', 'truck'] as const
+    carSizes: initialData?.carSizes || ['compact', 'suv', 'truck'] as ('compact' | 'suv' | 'truck')[]
   });
 
   const handleCarSizeChange = (size: 'compact' | 'suv' | 'truck') => {
