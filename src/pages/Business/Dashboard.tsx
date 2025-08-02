@@ -194,38 +194,45 @@ const BusinessDashboard: React.FC = () => {
               <p>{searchQuery ? 'No cars found matching your search' : 'No cars added yet'}</p>
             </div>
           ) : (
-            <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px'}}>
-              {filteredCars.map(car => (
-                <div key={car.id} className="car-card" style={{display: 'flex', flexDirection: 'row', width: '100%', padding: '0', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', overflow: 'hidden', background: 'white'}}>
-                  <div className="car-images" style={{width: '140px', height: '110px', overflow: 'hidden', flexShrink: 0, background: '#f8f9fa'}}>
-                    {car.images.length > 0 ? (
-                      <img src={car.images[0]} alt={car.licensePlate} />
-                    ) : (
-                      <div className="no-image">No Image</div>
-                    )}
-                  </div>
-                  <div className="car-info" style={{flex: 1, padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '110px'}}>
-                    <div style={{flex: 1}}>
-                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem'}}>
-                        <div>
-                          <h3 style={{margin: '0 0 0.25rem 0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{car.licensePlate}</h3>
-                          <p style={{margin: '0', color: '#7f8c8d', fontSize: '0.9rem'}}>{car.make} • {car.color}</p>
-                        </div>
-                        <div style={{background: '#ecf0f1', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.75rem', color: '#2c3e50', fontWeight: '500'}}>Car</div>
+            <table style={{width: '100%', maxWidth: '1200px', borderCollapse: 'collapse', background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'}}>
+              <thead>
+                <tr style={{background: '#f8f9fa', borderBottom: '2px solid #e9ecef'}}>
+                  <th style={{padding: '1rem', textAlign: 'center', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Image</th>
+                  <th style={{padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>License Plate</th>
+                  <th style={{padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Make</th>
+                  <th style={{padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Color</th>
+                  <th style={{padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Owner</th>
+                  <th style={{padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Phone</th>
+                  <th style={{padding: '1rem', textAlign: 'center', fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem'}}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredCars.map((car, index) => (
+                  <tr key={car.id} style={{borderBottom: index < filteredCars.length - 1 ? '1px solid #f0f0f0' : 'none'}}>
+                    <td style={{padding: '1rem', textAlign: 'center'}}>
+                      <div style={{width: '60px', height: '45px', borderRadius: '4px', overflow: 'hidden', background: '#f0f0f0', margin: '0 auto'}}>
+                        {car.images.length > 0 ? (
+                          <img src={car.images[0]} alt={car.licensePlate} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                        ) : (
+                          <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: '#999'}}>No Image</div>
+                        )}
                       </div>
-                      <div style={{display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: '#34495e'}}>
-                        <div><span style={{color: '#7f8c8d'}}>Owner:</span> {car.owner.name}</div>
-                        <div><span style={{color: '#7f8c8d'}}>Phone:</span> {car.owner.phone}</div>
+                    </td>
+                    <td style={{padding: '1rem', fontWeight: '600', color: '#2c3e50'}}>{car.licensePlate}</td>
+                    <td style={{padding: '1rem', color: '#34495e'}}>{car.make}</td>
+                    <td style={{padding: '1rem', color: '#34495e'}}>{car.color}</td>
+                    <td style={{padding: '1rem', color: '#34495e'}}>{car.owner.name}</td>
+                    <td style={{padding: '1rem', color: '#7f8c8d', fontSize: '0.9rem'}}>{car.owner.phone}</td>
+                    <td style={{padding: '1rem', textAlign: 'center'}}>
+                      <div style={{display: 'flex', gap: '0.5rem', justifyContent: 'center'}}>
+                        <button onClick={() => handleEditCar(car)} style={{padding: '0.4rem 0.8rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500'}}>Edit</button>
+                        <button onClick={() => handleDeleteCar(car.id)} style={{padding: '0.4rem 0.8rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500'}}>Delete</button>
                       </div>
-                    </div>
-                    <div className="card-actions" style={{display: 'flex', gap: '0.5rem', marginTop: '0.75rem'}}>
-                      <button onClick={() => handleEditCar(car)} style={{padding: '0.4rem 0.8rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s'}}>Edit</button>
-                      <button onClick={() => handleDeleteCar(car.id)} style={{padding: '0.4rem 0.8rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s'}}>Delete</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
 

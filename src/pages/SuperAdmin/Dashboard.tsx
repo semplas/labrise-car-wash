@@ -75,7 +75,7 @@ const SuperAdminDashboard: React.FC = () => {
             </button>
           </div>
 
-          <div className="businesses-list">
+          <div style={{display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '800px'}}>
             {businesses.map(business => (
               <div key={business.id} className="business-card">
                 <h3>{business.businessName}</h3>

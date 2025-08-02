@@ -127,10 +127,15 @@ button:disabled {
 }
 
 .stats-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stats-row .stat-card {
+  flex: 1;
+  min-width: 200px;
 }
 
 .stat-card {
@@ -173,11 +178,7 @@ button:disabled {
   background: #229954;
 }
 
-.businesses-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-}
+/* Businesses list now uses inline styles */
 
 .business-card {
   background: white;
@@ -228,7 +229,7 @@ button:disabled {
   }
   
   .form-row {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 0.75rem;
   }
   
@@ -241,8 +242,8 @@ button:disabled {
     width: 100%;
   }
   
-  .image-preview {
-    grid-template-columns: repeat(2, 1fr);
+  .image-preview .image-item {
+    width: calc(50% - 0.5rem);
   }
 }
 
@@ -272,9 +273,14 @@ button:disabled {
 
 /* Quick Actions */
 .quick-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.quick-actions .action-card {
+  flex: 1;
+  min-width: 250px;
 }
 
 .action-card {
@@ -401,131 +407,19 @@ button:disabled {
   }
 }
 
-/* Car List - Force flex layout */
-.cars-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.5rem !important;
-  grid-template-columns: unset !important;
-  grid-template-rows: unset !important;
-  grid: none !important;
-}
-
-.cars-list .car-card {
-  display: flex !important;
-  flex-direction: row !important;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-}
-
-.cars-list .car-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.cars-list .car-images {
-  width: 150px;
-  height: 120px;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.cars-list .car-images img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cars-list .no-image {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  color: #999;
-}
-
-.cars-list .car-info {
-  flex: 1;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-  .cars-list .car-card {
-    flex-direction: column !important;
-  }
-  
-  .cars-list .car-images {
-    width: 100% !important;
-    height: 200px;
-  }
-}
+/* All list layouts now use inline styles for better control */
 
 /* Old car styles removed - using inline styles now */
 
-/* Services List - Force flex layout */
-.services-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.5rem !important;
-  grid-template-columns: unset !important;
-  grid-template-rows: unset !important;
-  grid: none !important;
-}
-
-.services-list .service-card {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-  text-align: left !important;
-}
-
-.services-list .service-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.services-list .service-info {
-  flex: 1;
-}
-
-.services-list .service-details {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .services-list .service-card {
-    flex-direction: column !important;
-    text-align: center !important;
-    gap: 1rem;
-  }
-  
-  .services-list .service-details {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
+/* Services list now uses inline styles */
   
   .stats-row {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 0.75rem;
+  }
+  
+  .stats-row .stat-card {
+    min-width: auto;
   }
   
   .dashboard-content {
@@ -587,9 +481,12 @@ button:disabled {
 
 /* Form Styles */
 .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
 }
 
 .form-group textarea {
@@ -639,10 +536,15 @@ button:disabled {
 
 /* Image Upload */
 .image-preview {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.image-preview .image-item {
+  width: 100px;
+  height: 100px;
 }
 
 .image-item {
@@ -744,10 +646,15 @@ button:disabled {
 }
 
 .queue-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.queue-stats .queue-stat {
+  flex: 1;
+  min-width: 150px;
 }
 
 .queue-stat {
@@ -772,9 +679,12 @@ button:disabled {
 }
 
 .queue-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 2rem;
+}
+
+.queue-columns .queue-column {
+  flex: 1;
 }
 
 .queue-column {
@@ -911,10 +821,15 @@ button:disabled {
 }
 
 .staff-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.staff-stats .staff-stat {
+  flex: 1;
+  min-width: 150px;
 }
 
 .staff-stat {
@@ -938,56 +853,7 @@ button:disabled {
   margin: 0;
 }
 
-/* Staff List - Force flex layout */
-.staff-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.5rem !important;
-  grid-template-columns: unset !important;
-  grid-template-rows: unset !important;
-  grid: none !important;
-}
-
-.staff-list .staff-card {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-}
-
-.staff-list .staff-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.staff-list .staff-main-info {
-  flex: 1;
-}
-
-.staff-list .staff-secondary-info {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .staff-list .staff-card {
-    flex-direction: column !important;
-    gap: 1rem;
-  }
-  
-  .staff-list .staff-secondary-info {
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-  }
-}
+/* Staff list now uses inline styles */
 
 .staff-card.inactive {
   opacity: 0.6;
@@ -1036,9 +902,12 @@ button:disabled {
 }
 
 .performance-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 0.5rem;
+}
+
+.performance-stats .perf-stat {
+  flex: 1;
 }
 
 .perf-stat {
@@ -1106,7 +975,7 @@ button:disabled {
   }
   
   .queue-columns {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1rem;
   }
   
@@ -1115,7 +984,7 @@ button:disabled {
   }
   
   .performance-stats {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }
 
@@ -1149,10 +1018,15 @@ button:disabled {
 }
 
 .revenue-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.revenue-cards .revenue-card {
+  flex: 1;
+  min-width: 200px;
 }
 
 .revenue-card {
@@ -1184,9 +1058,12 @@ button:disabled {
 }
 
 .analytics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 2rem;
+}
+
+.analytics-grid .analytics-section {
+  flex: 1;
 }
 
 .analytics-section {
@@ -1366,12 +1243,16 @@ button:disabled {
 
 @media (max-width: 768px) {
   .analytics-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1rem;
   }
   
   .revenue-cards {
-    grid-template-columns: repeat(2, 1fr);
+    flex-direction: column;
+  }
+  
+  .revenue-cards .revenue-card {
+    min-width: auto;
   }
   
   .install-prompt {
