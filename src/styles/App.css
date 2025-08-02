@@ -644,6 +644,394 @@ button:disabled {
   }
 }
 
+/* Dashboard Tabs */
+.dashboard-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s ease;
+  margin: 0;
+  width: auto;
+}
+
+.tab-btn:hover {
+  color: #333;
+  background: #f8f9fa;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  background: transparent;
+}
+
+/* Queue Management */
+.queue-management {
+  padding: 1rem 0;
+}
+
+.queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.queue-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.queue-stat {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.queue-stat h3 {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.queue-stat p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.queue-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.queue-column {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 400px;
+}
+
+.queue-column h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.queue-item {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-left: 4px solid #ddd;
+}
+
+.queue-item.waiting {
+  border-left-color: #f39c12;
+}
+
+.queue-item.in-progress {
+  border-left-color: #3498db;
+}
+
+.queue-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.queue-item-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.estimated-time, .elapsed-time {
+  font-size: 0.8rem;
+  color: #666;
+  background: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+.queue-services {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.service-tag {
+  background: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #495057;
+}
+
+.queue-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.start-btn, .complete-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.start-btn {
+  background: #3498db;
+  color: white;
+}
+
+.start-btn:hover {
+  background: #2980b9;
+}
+
+.complete-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.complete-btn:hover {
+  background: #229954;
+}
+
+.remove-btn {
+  flex: 1;
+  padding: 0.5rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+}
+
+.service-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Staff Management */
+.staff-management {
+  padding: 1rem 0;
+}
+
+.staff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.staff-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.staff-stat {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.staff-stat h3 {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.staff-stat p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1rem;
+}
+
+.staff-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.staff-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.staff-card.inactive {
+  opacity: 0.6;
+  background: #f8f9fa;
+}
+
+.staff-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.staff-header-info h3 {
+  margin: 0;
+  color: #333;
+}
+
+.role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.staff-contact {
+  margin-bottom: 1rem;
+}
+
+.staff-contact p {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.staff-performance {
+  margin-bottom: 1rem;
+}
+
+.staff-performance h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.performance-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.perf-stat {
+  text-align: center;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.perf-stat span {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.perf-stat strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.staff-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.staff-actions button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.activate-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.activate-btn:hover {
+  background: #229954;
+}
+
+.deactivate-btn {
+  background: #f39c12;
+  color: white;
+}
+
+.deactivate-btn:hover {
+  background: #e67e22;
+}
+
+@media (max-width: 768px) {
+  .dashboard-tabs {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .tab-btn {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    border-radius: 0;
+  }
+  
+  .queue-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .staff-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .performance-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
 .edit-btn {
   flex: 1;
   padding: 0.5rem;

@@ -6,6 +6,8 @@ import { serviceService, Service } from '../../services/serviceService';
 import { customerService, Customer } from '../../services/customerService';
 import CarForm from '../../components/CarForm';
 import ServiceForm from '../../components/ServiceForm';
+import QueueManagement from '../../components/QueueManagement';
+import StaffManagement from '../../components/StaffManagement';
 
 const BusinessDashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -19,6 +21,7 @@ const BusinessDashboard: React.FC = () => {
   const [editingCar, setEditingCar] = useState<Car | null>(null);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'overview' | 'queue' | 'staff'>('overview');
 
   const loadData = () => {
     if (!user?.businessId) return;
@@ -121,7 +124,29 @@ const BusinessDashboard: React.FC = () => {
       </header>
 
       <div className="dashboard-content">
-        <div className="stats-row">
+        <div className="dashboard-tabs">
+          <button 
+            className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
+            Overview
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'queue' ? 'active' : ''}`}
+            onClick={() => setActiveTab('queue')}
+          >
+            Queue
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'staff' ? 'active' : ''}`}
+            onClick={() => setActiveTab('staff')}
+          >
+            Staff
+          </button>
+        </div>
+        {activeTab === 'overview' && (
+          <>
+            <div className="stats-row">
           <div className="stat-card">
             <h3>Total Cars</h3>
             <p>{cars.length}</p>
@@ -241,6 +266,11 @@ const BusinessDashboard: React.FC = () => {
             initialData={editingService || undefined}
           />
         )}
+          </>
+        )}
+
+        {activeTab === 'queue' && <QueueManagement />}
+        {activeTab === 'staff' && <StaffManagement />}
 
 
       </div>
