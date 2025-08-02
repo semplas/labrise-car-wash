@@ -18,6 +18,7 @@ const BusinessDashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [editingCar, setEditingCar] = useState<Car | null>(null);
   const [editingService, setEditingService] = useState<Service | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const loadData = () => {
     if (!user?.businessId) return;
@@ -34,8 +35,13 @@ const BusinessDashboard: React.FC = () => {
     loadData();
   }, [user, navigate]);
 
-  const handleAddCar = (carData: Omit<Car, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleAddCar = async (carData: Omit<Car, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (!user?.businessId) return;
+    setLoading(true);
+    
+    // Simulate processing time for better UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
     if (editingCar) {
       carService.updateCar(user.businessId, editingCar.id, carData);
       setEditingCar(null);
@@ -44,10 +50,16 @@ const BusinessDashboard: React.FC = () => {
     }
     loadData();
     setShowCarForm(false);
+    setLoading(false);
   };
 
-  const handleAddService = (serviceData: Omit<Service, 'id' | 'createdAt'>) => {
+  const handleAddService = async (serviceData: Omit<Service, 'id' | 'createdAt'>) => {
     if (!user?.businessId) return;
+    setLoading(true);
+    
+    // Simulate processing time for better UX
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
     if (editingService) {
       serviceService.updateService(user.businessId, editingService.id, serviceData);
       setEditingService(null);
@@ -56,6 +68,7 @@ const BusinessDashboard: React.FC = () => {
     }
     loadData();
     setShowServiceForm(false);
+    setLoading(false);
   };
 
   const handleEditCar = (car: Car) => {
