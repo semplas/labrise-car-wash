@@ -322,9 +322,10 @@ const ServiceHistory: React.FC = () => {
       </div>
 
       {filteredHistory.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
-          <i className="fas fa-history text-4xl text-gray-300 mb-4"></i>
-          <p className="text-gray-500">No service history found</p>
+        <div className="empty-state">
+          <i className="fas fa-history empty-state-icon"></i>
+          <p className="empty-state-text">{searchTerm ? 'No matching records found' : 'No service history yet'}</p>
+          <p className="text-sm text-gray-400 mt-2">{searchTerm ? 'Try adjusting your search terms' : 'Completed services will appear here'}</p>
         </div>
       ) : (
         <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-100">

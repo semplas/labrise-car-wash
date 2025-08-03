@@ -132,9 +132,10 @@ const QueueManagement: React.FC = () => {
       <div className="mb-8">
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Waiting Queue ({waitingItems.length})</h3>
         {waitingItems.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
-            <i className="fas fa-clock text-4xl text-gray-300 mb-4"></i>
-            <p className="text-gray-500">No items in waiting queue</p>
+          <div className="empty-state">
+            <i className="fas fa-clock empty-state-icon"></i>
+            <p className="empty-state-text">No items in waiting queue</p>
+            <p className="text-sm text-gray-400 mt-2">Cars will appear here when added to the queue</p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-100 mb-8">
@@ -221,9 +222,10 @@ const QueueManagement: React.FC = () => {
       <div>
         <h3 className="text-xl font-semibold text-gray-800 mb-4">In Progress ({inProgressItems.length})</h3>
         {inProgressItems.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
-            <i className="fas fa-cog text-4xl text-gray-300 mb-4"></i>
-            <p className="text-gray-500">No items in progress</p>
+          <div className="empty-state">
+            <i className="fas fa-cog empty-state-icon"></i>
+            <p className="empty-state-text">No items in progress</p>
+            <p className="text-sm text-gray-400 mt-2">Started services will appear here</p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-100">

@@ -82,5 +82,34 @@
     }
   }
 
+  /* Toast animations */
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* Empty state styling */
+  .empty-state {
+    @apply text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100;
+  }
+
+  .empty-state-icon {
+    @apply text-4xl text-gray-300 mb-4;
+  }
+
+  .empty-state-text {
+    @apply text-gray-500;
+  }
+
 
 }
