@@ -13,6 +13,7 @@ const QueueManagement: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [loading, setLoading] = useState({ start: '', complete: '', remove: '' });
 
   useEffect(() => {
     if (!user?.businessId) return;
@@ -30,33 +31,48 @@ const QueueManagement: React.FC = () => {
   const getCarById = (carId: string) => cars.find(c => c.id === carId);
   const getServiceById = (serviceId: string) => services.find(s => s.id === serviceId);
 
-  const handleStartService = (itemId: string) => {
+  const handleStartService = async (itemId: string) => {
     if (!user?.businessId) return;
-    const item = queue.find(q => q.id === itemId);
-    const car = item ? getCarById(item.carId) : null;
-    queueService.startService(user.businessId, itemId);
-    if (car) {
-      notifyQueueUpdate(`Service started for ${car.licensePlate}`);
-    }
-    loadData();
+    setLoading(prev => ({ ...prev, start: itemId }));
+    
+    setTimeout(() => {
+      const item = queue.find(q => q.id === itemId);
+      const car = item ? getCarById(item.carId) : null;
+      queueService.startService(user.businessId!, itemId);
+      if (car) {
+        notifyQueueUpdate(`Service started for ${car.licensePlate}`);
+      }
+      loadData();
+      setLoading(prev => ({ ...prev, start: '' }));
+    }, 500);
   };
 
-  const handleCompleteService = (itemId: string) => {
+  const handleCompleteService = async (itemId: string) => {
     if (!user?.businessId) return;
-    const item = queue.find(q => q.id === itemId);
-    const car = item ? getCarById(item.carId) : null;
-    queueService.completeService(user.businessId, itemId);
-    if (car) {
-      notifyServiceComplete(car.licensePlate);
-    }
-    loadData();
+    setLoading(prev => ({ ...prev, complete: itemId }));
+    
+    setTimeout(() => {
+      const item = queue.find(q => q.id === itemId);
+      const car = item ? getCarById(item.carId) : null;
+      queueService.completeService(user.businessId!, itemId);
+      if (car) {
+        notifyServiceComplete(car.licensePlate);
+      }
+      loadData();
+      setLoading(prev => ({ ...prev, complete: '' }));
+    }, 500);
   };
 
-  const handleRemoveFromQueue = (itemId: string) => {
+  const handleRemoveFromQueue = async (itemId: string) => {
     if (!user?.businessId) return;
     if (window.confirm('Remove this item from queue?')) {
-      queueService.removeFromQueue(user.businessId, itemId);
-      loadData();
+      setLoading(prev => ({ ...prev, remove: itemId }));
+      
+      setTimeout(() => {
+        queueService.removeFromQueue(user.businessId!, itemId);
+        loadData();
+        setLoading(prev => ({ ...prev, remove: '' }));
+      }, 300);
     }
   };
 
@@ -176,11 +192,21 @@ const QueueManagement: React.FC = () => {
                         )}
                       </td>
                       <td className="p-4 text-center whitespace-nowrap">
-                        <button onClick={() => handleStartService(item.id)} className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors mr-2 w-7 h-7 text-xs" title="Start">
-                          <i className="fas fa-play"></i>
+                        <button 
+                          onClick={() => handleStartService(item.id)} 
+                          disabled={loading.start === item.id}
+                          className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors mr-2 w-7 h-7 text-xs disabled:bg-gray-400" 
+                          title="Start"
+                        >
+                          {loading.start === item.id ? <i className="fas fa-cog animate-spin"></i> : <i className="fas fa-play"></i>}
                         </button>
-                        <button onClick={() => handleRemoveFromQueue(item.id)} className="inline-block p-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors w-7 h-7 text-xs" title="Remove">
-                          <i className="fas fa-trash"></i>
+                        <button 
+                          onClick={() => handleRemoveFromQueue(item.id)} 
+                          disabled={loading.remove === item.id}
+                          className="inline-block p-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors w-7 h-7 text-xs disabled:bg-gray-400" 
+                          title="Remove"
+                        >
+                          {loading.remove === item.id ? <i className="fas fa-cog animate-spin"></i> : <i className="fas fa-trash"></i>}
                         </button>
                       </td>
                     </tr>
@@ -231,8 +257,13 @@ const QueueManagement: React.FC = () => {
                       </td>
                       <td className="p-4 text-center text-gray-600 text-sm">{elapsed} min</td>
                       <td className="p-4 text-center">
-                        <button onClick={() => handleCompleteService(item.id)} className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors w-7 h-7 text-xs" title="Complete">
-                          <i className="fas fa-check"></i>
+                        <button 
+                          onClick={() => handleCompleteService(item.id)} 
+                          disabled={loading.complete === item.id}
+                          className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors w-7 h-7 text-xs disabled:bg-gray-400" 
+                          title="Complete"
+                        >
+                          {loading.complete === item.id ? <i className="fas fa-cog animate-spin"></i> : <i className="fas fa-check"></i>}
                         </button>
                       </td>
                     </tr>

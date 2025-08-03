@@ -23,6 +23,7 @@ const ServiceHistory: React.FC = () => {
   const [services, setServices] = useState<any[]>([]);
   const [staff, setStaff] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sendingReceipt, setSendingReceipt] = useState('');
 
   useEffect(() => {
     if (!user?.businessId) return;
@@ -267,30 +268,35 @@ const ServiceHistory: React.FC = () => {
       return;
     }
     
-    const imageData = generateReceiptImage(record);
-    
-    // Create download link for the image
-    const link = document.createElement('a');
-    link.download = `receipt-${record.id.slice(-8)}.png`;
-    link.href = imageData;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Format phone number for WhatsApp
-    let formattedPhone = phoneNumber;
-    if (phoneNumber.startsWith('0')) {
-      formattedPhone = '256' + phoneNumber.substring(1);
-    } else if (!phoneNumber.startsWith('256')) {
-      formattedPhone = '256' + phoneNumber;
-    }
-    
-    const message = `Hi ${car?.owner.name}, here's your receipt from ${user?.businessName}. Please find the receipt image downloaded to share.`;
-    const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+    setSendingReceipt(record.id);
     
     setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-    }, 500);
+      const imageData = generateReceiptImage(record);
+      
+      // Create download link for the image
+      const link = document.createElement('a');
+      link.download = `receipt-${record.id.slice(-8)}.png`;
+      link.href = imageData;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Format phone number for WhatsApp
+      let formattedPhone = phoneNumber;
+      if (phoneNumber.startsWith('0')) {
+        formattedPhone = '256' + phoneNumber.substring(1);
+      } else if (!phoneNumber.startsWith('256')) {
+        formattedPhone = '256' + phoneNumber;
+      }
+      
+      const message = `Hi ${car?.owner.name}, here's your receipt from ${user?.businessName}. Please find the receipt image downloaded to share.`;
+      const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+      
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+        setSendingReceipt('');
+      }, 500);
+    }, 1000);
   };
 
   const filteredHistory = history.filter(record => {
@@ -376,10 +382,11 @@ const ServiceHistory: React.FC = () => {
                     <td className="p-4 text-center">
                       <button 
                         onClick={() => sendWhatsAppReceipt(record)}
-                        className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors w-7 h-7 text-xs" 
+                        disabled={sendingReceipt === record.id}
+                        className="inline-block p-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors w-7 h-7 text-xs disabled:bg-gray-400" 
                         title="Send WhatsApp Receipt"
                       >
-                        <i className="fab fa-whatsapp"></i>
+                        {sendingReceipt === record.id ? <i className="fas fa-cog animate-spin"></i> : <i className="fab fa-whatsapp"></i>}
                       </button>
                     </td>
                   </tr>
