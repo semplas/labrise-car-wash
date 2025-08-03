@@ -1,7 +1,7 @@
 {
   "short_name": "Labrise",
   "name": "Labrise Car Wash Management",
-  "description": "Professional car wash business management system",
+  "description": "Professional car wash business management system with offline support",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,12 +21,31 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#667eea",
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "categories": ["business", "productivity"],
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "scope": "/",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "shortcuts": [
+    {
+      "name": "Queue Management",
+      "short_name": "Queue",
+      "description": "Manage car wash queue",
+      "url": "/business/dashboard?tab=queue",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Add Car",
+      "short_name": "Add Car",
+      "description": "Add new car to system",
+      "url": "/business/dashboard?tab=cars",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
 }

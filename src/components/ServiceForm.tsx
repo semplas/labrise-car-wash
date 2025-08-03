@@ -37,7 +37,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit, onClose, initialDat
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>{initialData ? 'Edit Service' : 'Add New Service'}</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">{initialData ? 'Edit Service' : 'Add New Service'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Service Name</label>
@@ -102,8 +102,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onSubmit, onClose, initialDat
           </div>
 
           <div className="modal-actions">
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">{initialData ? 'Update' : 'Add'} Service</button>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
+            <button type="submit" className="btn-primary">{initialData ? 'Update' : 'Add'} Service</button>
           </div>
         </form>
       </div>

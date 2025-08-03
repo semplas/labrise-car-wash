@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App';
-import { registerSW, initInstallPrompt } from './services/pwaService';
+import { registerSW, initInstallPrompt, initOfflineDetection, requestNotificationPermission } from './services/pwaService';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,6 +13,5 @@ root.render(
   </React.StrictMode>
 );
 
-// Initialize PWA features
-registerSW();
-initInstallPrompt();
+// PWA disabled to prevent flickering
+// registerSW();

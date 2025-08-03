@@ -33,6 +33,20 @@ export class CarService {
       updatedAt: Date.now()
     };
     
+    // Create customer if doesn't exist
+    const { customerService } = require('./customerService');
+    const customers = customerService.getCustomers(businessId);
+    const existingCustomer = customers.find((c: any) => c.phone === carData.owner.phone);
+    
+    if (!existingCustomer) {
+      customerService.addCustomer(businessId, {
+        name: carData.owner.name,
+        phone: carData.owner.phone,
+        address: carData.owner.address,
+        email: ''
+      });
+    }
+    
     cars.push(newCar);
     localStorage.setItem(this.getStorageKey(businessId), JSON.stringify(cars));
     return newCar;

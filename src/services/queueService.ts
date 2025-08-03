@@ -6,6 +6,7 @@ export interface QueueItem {
   estimatedTime: number; // in minutes
   startTime?: number;
   completedTime?: number;
+  assignedStaff?: string;
   createdAt: number;
 }
 
@@ -19,9 +20,19 @@ export class QueueService {
     return stored ? JSON.parse(stored) : [];
   }
 
-  addToQueue(businessId: string, carId: string, serviceIds: string[]): QueueItem {
+  addToQueue(businessId: string, carId: string, serviceIds: string[], services?: any[]): QueueItem {
     const queue = this.getQueue(businessId);
-    const estimatedTime = serviceIds.length * 30; // 30 min per service estimate
+    
+    // Calculate estimated time from actual service durations
+    let estimatedTime = 0;
+    if (services) {
+      estimatedTime = serviceIds.reduce((total, serviceId) => {
+        const service = services.find(s => s.id === serviceId);
+        return total + (service?.duration || 30); // fallback to 30 min if not found
+      }, 0);
+    } else {
+      estimatedTime = serviceIds.length * 30; // fallback calculation
+    }
     
     const queueItem: QueueItem = {
       id: Date.now().toString(),
@@ -70,6 +81,12 @@ export class QueueService {
     
     localStorage.setItem(this.getStorageKey(businessId), JSON.stringify(filtered));
     return true;
+  }
+
+  assignStaff(businessId: string, itemId: string, staffId: string): boolean {
+    return !!this.updateQueueItem(businessId, itemId, {
+      assignedStaff: staffId
+    });
   }
 }
 

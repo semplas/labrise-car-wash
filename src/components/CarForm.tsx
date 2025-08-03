@@ -55,7 +55,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onClose, initialData }) => 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>{initialData ? 'Edit Car' : 'Add New Car'}</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">{initialData ? 'Edit Car' : 'Add New Car'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>License Plate</label>
@@ -134,6 +134,7 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onClose, initialData }) => 
               multiple
               onChange={handleImageUpload}
               disabled={formData.images.length >= 4}
+              className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
             />
             <div className="image-preview">
               {formData.images.map((image, index) => (
@@ -146,8 +147,8 @@ const CarForm: React.FC<CarFormProps> = ({ onSubmit, onClose, initialData }) => 
           </div>
 
           <div className="modal-actions">
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">{initialData ? 'Update' : 'Add'} Car</button>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
+            <button type="submit" className="btn-primary">{initialData ? 'Update' : 'Add'} Car</button>
           </div>
         </form>
       </div>

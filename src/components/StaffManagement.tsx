@@ -62,86 +62,106 @@ const StaffManagement: React.FC = () => {
   const inactiveStaff = staff.filter(s => !s.isActive);
 
   return (
-    <div className="staff-management">
-      <div className="staff-header">
-        <h2>Staff Management</h2>
-        <button onClick={() => setShowAddForm(true)} className="create-btn">
+    <div className="py-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h2 className="text-2xl font-semibold text-gray-800">Staff Management</h2>
+        <button onClick={() => setShowAddForm(true)} className="btn-success flex items-center gap-2">
+          <i className="fas fa-plus"></i>
           Add Staff
         </button>
       </div>
 
-      <div className="staff-stats">
-        <div className="staff-stat">
-          <h3>Total Staff</h3>
-          <p>{staff.length}</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600">Total Staff</h3>
+            <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+              <i className="fas fa-users text-white"></i>
+            </div>
+          </div>
+          <p className="text-3xl font-bold text-blue-500">{staff.length}</p>
         </div>
-        <div className="staff-stat">
-          <h3>Active</h3>
-          <p>{activeStaff.length}</p>
+        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600">Active</h3>
+            <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+              <i className="fas fa-check text-white"></i>
+            </div>
+          </div>
+          <p className="text-3xl font-bold text-green-500">{activeStaff.length}</p>
         </div>
-        <div className="staff-stat">
-          <h3>Managers</h3>
-          <p>{staff.filter(s => s.role === 'manager').length}</p>
+        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600">Managers</h3>
+            <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+              <i className="fas fa-crown text-white"></i>
+            </div>
+          </div>
+          <p className="text-3xl font-bold text-purple-500">{staff.filter(s => s.role === 'manager').length}</p>
         </div>
       </div>
 
-      <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '1000px'}}>
-        {staff.map(staffMember => (
-          <div key={staffMember.id} className={`staff-card ${!staffMember.isActive ? 'inactive' : ''}`} style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e8e8e8', background: 'white', minHeight: '100px', opacity: !staffMember.isActive ? 0.6 : 1}}>
-            <div className="staff-main-info" style={{flex: 1, marginRight: '1.5rem'}}>
-              <div className="staff-header-info" style={{display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem'}}>
-                <h3 style={{margin: '0', fontSize: '1.1rem', fontWeight: '600', color: '#2c3e50'}}>{staffMember.name}</h3>
-                <span 
-                  className="role-badge" 
-                  style={{ backgroundColor: getRoleColor(staffMember.role), color: 'white', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.7rem', fontWeight: '500', textTransform: 'uppercase' }}
-                >
-                  {staffMember.role}
-                </span>
-                {!staffMember.isActive && <span style={{background: '#f39c12', color: 'white', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.7rem', fontWeight: '500'}}>INACTIVE</span>}
-              </div>
-              <div className="staff-contact" style={{display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: '#34495e'}}>
-                <div><span style={{color: '#7f8c8d'}}>Email:</span> {staffMember.email}</div>
-                <div><span style={{color: '#7f8c8d'}}>Phone:</span> {staffMember.phone}</div>
-                <div><span style={{color: '#7f8c8d'}}>Hired:</span> {new Date(staffMember.hireDate).toLocaleDateString()}</div>
-              </div>
-            </div>
-
-            <div className="staff-secondary-info" style={{display: 'flex', alignItems: 'center', gap: '2rem'}}>
-              <div className="staff-performance" style={{textAlign: 'center'}}>
-                <h4 style={{margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: '#7f8c8d', fontWeight: '500'}}>Performance</h4>
-                <div className="performance-stats" style={{display: 'flex', gap: '1rem'}}>
-                  <div className="perf-stat" style={{textAlign: 'center', padding: '0.5rem', background: '#f8f9fa', borderRadius: '8px', minWidth: '60px'}}>
-                    <span style={{display: 'block', fontSize: '0.7rem', color: '#7f8c8d', marginBottom: '0.25rem'}}>Services</span>
-                    <strong style={{fontSize: '1rem', color: '#2c3e50'}}>{staffMember.performance.servicesCompleted}</strong>
+      <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-100">
+        <table className="w-full min-w-[900px] bg-white">
+          <thead>
+            <tr className="bg-gray-50 border-b-2 border-gray-200">
+              <th className="p-4 text-left font-semibold text-gray-700 text-sm">Name</th>
+              <th className="p-4 text-left font-semibold text-gray-700 text-sm">Role</th>
+              <th className="p-4 text-left font-semibold text-gray-700 text-sm">Contact</th>
+              <th className="p-4 text-center font-semibold text-gray-700 text-sm">Status</th>
+              <th className="p-4 text-center font-semibold text-gray-700 text-sm min-w-[120px]">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {staff.map((staffMember, index) => (
+              <tr key={staffMember.id} className={`${index < staff.length - 1 ? 'border-b border-gray-100' : ''} hover:bg-gray-50 transition-colors ${!staffMember.isActive ? 'opacity-60' : ''}`}>
+                <td className="p-4 font-semibold text-gray-800 text-sm">
+                  <div>{staffMember.name}</div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    <i className="fas fa-envelope mr-2"></i>
+                    {staffMember.email}
                   </div>
-                  <div className="perf-stat" style={{textAlign: 'center', padding: '0.5rem', background: '#f8f9fa', borderRadius: '8px', minWidth: '60px'}}>
-                    <span style={{display: 'block', fontSize: '0.7rem', color: '#7f8c8d', marginBottom: '0.25rem'}}>Rating</span>
-                    <strong style={{fontSize: '1rem', color: '#f39c12'}}>{staffMember.performance.averageRating.toFixed(1)}★</strong>
+                </td>
+                <td className="p-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium text-white capitalize ${
+                    staffMember.role === 'manager' ? 'bg-red-500' :
+                    staffMember.role === 'washer' ? 'bg-blue-500' :
+                    staffMember.role === 'cashier' ? 'bg-green-500' : 'bg-gray-500'
+                  }`}>
+                    {staffMember.role}
+                  </span>
+                </td>
+                <td className="p-4 text-gray-600 text-sm">
+                  <div className="flex items-center">
+                    <i className="fas fa-phone mr-2 text-gray-400"></i>
+                    {staffMember.phone}
                   </div>
-                  <div className="perf-stat" style={{textAlign: 'center', padding: '0.5rem', background: '#f8f9fa', borderRadius: '8px', minWidth: '80px'}}>
-                    <span style={{display: 'block', fontSize: '0.7rem', color: '#7f8c8d', marginBottom: '0.25rem'}}>Revenue</span>
-                    <strong style={{fontSize: '0.9rem', color: '#27ae60'}}>UGX {staffMember.performance.totalRevenue.toLocaleString()}</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div className="staff-actions" style={{display: 'flex', gap: '0.5rem', flexDirection: 'column'}}>
-                <button onClick={() => handleEditStaff(staffMember)} style={{padding: '0.4rem 0.8rem', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px', transition: 'all 0.2s'}}>
-                  Edit
-                </button>
-                <button 
-                  onClick={() => handleToggleActive(staffMember.id, staffMember.isActive)}
-                  style={{padding: '0.4rem 0.8rem', background: staffMember.isActive ? '#f39c12' : '#27ae60', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px', transition: 'all 0.2s'}}
-                >
-                  {staffMember.isActive ? 'Deactivate' : 'Activate'}
-                </button>
-                <button onClick={() => handleDeleteStaff(staffMember.id)} style={{padding: '0.4rem 0.8rem', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '500', minWidth: '80px', transition: 'all 0.2s'}}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+                </td>
+                <td className="p-4 text-center">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${
+                    staffMember.isActive ? 'bg-green-500' : 'bg-gray-500'
+                  }`}>
+                    {staffMember.isActive ? 'Active' : 'Inactive'}
+                  </span>
+                </td>
+                <td className="p-4 text-center whitespace-nowrap">
+                  <button onClick={() => handleEditStaff(staffMember)} className="inline-block p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors mr-2 w-7 h-7 text-xs" title="Edit">
+                    <i className="fas fa-edit"></i>
+                  </button>
+                  <button 
+                    onClick={() => handleToggleActive(staffMember.id, staffMember.isActive)} 
+                    className={`inline-block p-2 text-white rounded transition-colors w-7 h-7 text-xs ${
+                      staffMember.isActive ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600'
+                    }`}
+                    title={staffMember.isActive ? 'Deactivate' : 'Activate'}
+                  >
+                    <i className={`fas ${staffMember.isActive ? 'fa-pause' : 'fa-play'}`}></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {showAddForm && (
@@ -180,7 +200,7 @@ const StaffForm: React.FC<{
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>{initialData ? 'Edit Staff' : 'Add New Staff'}</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">{initialData ? 'Edit Staff' : 'Add New Staff'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Name</label>
@@ -247,8 +267,8 @@ const StaffForm: React.FC<{
           </div>
 
           <div className="modal-actions">
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">{initialData ? 'Update' : 'Add'} Staff</button>
+            <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
+            <button type="submit" className="btn-primary">{initialData ? 'Update' : 'Add'} Staff</button>
           </div>
         </form>
       </div>
