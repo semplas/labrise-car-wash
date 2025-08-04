@@ -73,7 +73,7 @@ const SuperAdminLogin: React.FC = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage: 'url("https://images.unsplash.com/photo-1607860108855-64acf2078ed9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")',
+        backgroundImage: 'url("https://images.unsplash.com/photo-1607860108855-64acf2078ed9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -140,7 +140,12 @@ const SuperAdminLogin: React.FC = () => {
           </button>
         </form>
         
-        <div className="text-center mt-6">
+        <div className="text-center mt-6 space-y-3">
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 text-sm">
+            <p className="font-medium text-purple-800 mb-1">Demo Super Admin:</p>
+            <p className="text-purple-700">Username: <strong>admin</strong></p>
+            <p className="text-purple-700">Password: <strong>admin123</strong></p>
+          </div>
           <Link to="/login" className="text-primary-500 hover:text-primary-600 transition-colors">
             Business Login
           </Link>
